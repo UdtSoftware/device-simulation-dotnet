@@ -1,0 +1,93 @@
+{
+    "SchemaVersion": "1.0.0",
+    "Id": "gemagmon-01",
+    "Version": "0.0.1",
+    "Name": "GEMagMon",
+    "Description": "Magnet Monitor Unit for GE MRI's",
+    "Protocol": "MQTT",
+    "Simulation": {
+        "InitialState": {
+            "online": true,
+            "heLevel": 75.0,
+            "heLevel_unit": "%",
+            "hePressure": 4.0,
+            "hePressure_unit": "PSI",
+            "humidity": 70.0,
+            "humidity_unit": "%",
+            "roomTemp": 80.0,
+            "roomTemp_unit": "F",
+            "waterTemp": 60.0,
+            "waterTemp_unit": "F",
+            "waterFlow": 3.0,
+            "waterFlow_unit": "GPM",
+            "compressorStatus": 1,
+            "fieldStatus": 1
+
+        },
+        "Interval": "00:00:10",
+        "Scripts": [
+            {
+                "Type": "javascript",
+                "Path": "ge-magmon-01-state.js"
+            }
+        ]
+    },
+    "Properties": {
+        "Magnet":"LCC",
+        "Type": "MagMon",
+        "Firmware": "1.0",
+        "Model": "MM101",
+        "Location": "Udt HQ",
+        "Latitude": 26.528460,
+        "Longitude": -80.070420
+    },
+    "Tags": {
+        "Location": "UDT HQ",
+        "Floor": "1",
+        "Campus": "Boynton"
+    },
+    "Telemetry": [
+        {
+            "Interval": "00:00:10",
+            "MessageTemplate": "{\"heLevel\":${heLevel},\"heLevel_unit\":\"${heLevel_unit}\",\"hePressure\":${hePressure},\"hePressure_unit\":\"${hePressure_unit}\",\"humidity\":${humidity},\"humidity_unit\":\"${humidity_unit}\",\"roomTemp\":\"${roomTemp}\",\"roomTemp_unit\":\"${roomTemp_unit}\",\"waterTemp\":\"${waterTemp}\",\"waterTemp_unit\":\"${waterTemp_unit}\",\"waterFlow\":\"${waterFlow}\",\"waterFlow_unit\":\"${waterFlow_unit}\",\"compressorStatus\":\"${compressorStatus}\",\"fieldStatus\":\"${fieldStatus}\"}",
+            "MessageSchema": {
+                "Name": "ge-magmon;v1",
+                "Format": "JSON",
+                "Fields": {
+                    "heLevel": "double",
+                    "heLevel_unit": "text",
+                    "hePressure": "double",
+                    "hePressure_unit": "text",
+                    "humidity": "double",
+                    "humidity_unit": "text",
+                    "roomTemp": "double",
+                    "roomTemp_unit": "text",
+                    "waterTemp": "double",
+                    "waterTemp_unit": "text",
+                    "waterFlow": "double",
+                    "waterFlow_unit": "text",
+                    "compressorStatus": "integer",
+                    "fieldStatus": "integer"
+                }
+            }
+        }
+    ],
+    "CloudToDeviceMethods": {
+        "Reboot": {
+            "Type": "javascript",
+            "Path": "Reboot-method.js"
+        },
+        "FirmwareUpdate": {
+            "Type": "javascript",
+            "Path": "FirmwareUpdate-method.js"
+        },
+        "EmergencyValveRelease": {
+            "Type": "javascript",
+            "Path": "EmergencyValveRelease-method.js"
+        },
+        "IncreasePressure": {
+            "Type": "javascript",
+            "Path": "IncreasePressure-method.js"
+        }
+    }
+}
